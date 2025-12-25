@@ -10,6 +10,7 @@
 | 产品方案模板 | [product-proposal-template.md](./proposal-templates/product-proposal-template.md) | 产品功能方案评审 | 业务价值、用户需求、功能完整性、优先级 | 产品经理、交互设计师 |
 | 重构方案模板 | [refactoring-proposal-template.md](./proposal-templates/refactoring-proposal-template.md) | 系统重构方案评审 | 重构必要性、风险评估、迁移方案、兼容性、用户体验影响 | 前端专家、后端专家、产品经理、交互设计师 |
 | 性能优化模板 | [performance-optimization-template.md](./proposal-templates/performance-optimization-template.md) | 性能优化方案评审 | 性能瓶颈、优化方案、效果评估、监控方案 | 前端专家、后端专家 |
+| 文章评审模板 | [article-review-template.md](./proposal-templates/article-review-template.md) | 文章内容评审 | 内容质量、语言表达、结构组织、传播价值、受众匹配 | 资深编辑、资深运营 |
 
 ## 模板选择建议
 
@@ -21,6 +22,7 @@
 - **产品方案** → 产品方案模板
 - **重构方案** → 重构方案模板
 - **性能优化方案** → 性能优化模板
+- **文章评审** → 文章评审模板
 
 ## 模板组合使用
 

@@ -10,7 +10,7 @@ description: 指导 AI Agent 从多个专业角色视角（技术专家、产品
 ## 评审流程
 
 1. **理解方案文档**：理解方案文档的整体结构和关键章节
-2. **分析方案结构**：提取核心要素（背景、目标、架构、方案选型、实施计划、风险评估等）
+2. **分析方案结构**：提取核心要素（比如对于技术方案：背景、目标、架构、方案选型、实施计划、风险评估等；对于文章：提取主题、结构、内容要点、目标受众等。应该根据方案的类型，提取相应的核心要素）
 3. **角色评审**：根据方案类型选择合适的评审角色，从各角色的专业视角独立评审
 4. **汇总评审意见**：整理各角色意见，识别共性问题和分歧点，提取关键优势和担忧
 5. **生成评审报告**：按照标准格式生成评审报告并保存
@@ -48,6 +48,7 @@ description: 指导 AI Agent 从多个专业角色视角（技术专家、产品
    - 主要涉及产品功能、业务价值 → `proposal-templates/product-proposal-template.md`
    - 系统重构和升级 → `proposal-templates/refactoring-proposal-template.md`
    - 性能优化和调优 → `proposal-templates/performance-optimization-template.md`
+   - 主要涉及文章内容、编辑、写作 → `proposal-templates/article-review-template.md`
 3. **选择模板**：选择最符合方案类型的模板
 
 所有可用模板见：[模板汇总](./references/template-selection-guide.md)
