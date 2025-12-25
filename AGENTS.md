@@ -428,8 +428,32 @@ Usage notes:
 <available_skills>
 
 <skill>
+<name>brand-guidelines</name>
+<description>Applies Anthropic's official brand colors and typography to any sort of artifact that may benefit from having Anthropic's look-and-feel. Use it when brand colors or style guidelines, visual formatting, or company design standards apply.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>canvas-design</name>
+<description>Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>frontend-design</name>
+<description>Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, artifacts, posters, or applications (examples include websites, landing pages, dashboards, React components, HTML/CSS layouts, or when styling/beautifying any web UI). Generates creative, polished code and UI design that avoids generic AI aesthetics.</description>
+<location>project</location>
+</skill>
+
+<skill>
 <name>prompt-optimizer</name>
 <description>Prompt engineering expert that helps users craft optimized prompts using 57 proven frameworks. Use when users want to optimize prompts, improve AI instructions, create better prompts for specific tasks, or need help selecting the best prompt framework for their use case.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>proposal-reviewer</name>
+<description>指导 AI Agent 从多个专业角色视角（技术专家、产品经理、交互设计师、资深编辑、资深运营等等）评审方案文档，并生成综合评审报告。适用于技术方案、产品方案、设计方案、文章等各领域文档的评审。</description>
 <location>project</location>
 </skill>
 
@@ -437,6 +461,18 @@ Usage notes:
 <name>skill-creator</name>
 <description>Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.</description>
 <location>project</location>
+</skill>
+
+<skill>
+<name>theme-factory</name>
+<description>Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>tech-proposal-reviewer</name>
+<description>指导 AI Agent 从多个专业角色视角（前端专家、后端专家、产品经理、交互设计师）评审技术方案文档，并生成综合评审报告。</description>
+<location>global</location>
 </skill>
 
 </available_skills>
