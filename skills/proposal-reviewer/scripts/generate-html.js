@@ -36,7 +36,7 @@ Handlebars.registerHelper('getScoreClass', function(score) {
 
 Handlebars.registerHelper('groupBy', function(array, key) {
     if (!array || !Array.isArray(array)) {
-        return {};
+        return [];
     }
     
     const grouped = {};
@@ -48,7 +48,11 @@ Handlebars.registerHelper('groupBy', function(array, key) {
         grouped[groupKey].push(item);
     });
     
-    return grouped;
+    // 转换为数组格式，便于模板遍历
+    return Object.keys(grouped).map(category => ({
+        category: category,
+        items: grouped[category]
+    }));
 });
 
 /**
@@ -131,7 +135,29 @@ function main() {
     
     const inputJson = args[0];
     const outputHtml = args[1];
-    const templatePath = args[2] || path.join(__dirname, '..', 'assets', 'report-templates', 'html-template.html');
+    
+    // 自动选择模板逻辑
+    let templatePath = args[2];
+    if (!templatePath) {
+        const hour = new Date().getHours();
+        // 早上6点到晚上6点使用浅色主题，否则使用暗色主题
+        const isDayTime = hour >= 6 && hour < 18;
+        const templateName = isDayTime ? 'html-template.html' : 'html-template-dark.html';
+        templatePath = path.join(__dirname, '..', 'assets', 'report-templates', templateName);
+        console.log(`当前时间 ${hour}点，自动选择${isDayTime ? '浅色' : '暗色'}主题模板`);
+    } else {
+        // 如果提供了相对路径，解析为绝对路径
+        if (!path.isAbsolute(templatePath)) {
+            // 尝试基于当前工作目录解析
+            if (fs.existsSync(path.resolve(templatePath))) {
+                templatePath = path.resolve(templatePath);
+            } else {
+                // 尝试基于脚本目录解析（兼容旧逻辑）
+                // 注意：旧逻辑中并没有这个 fallback，但如果用户传了一个文件名，可能希望在 assets 中找
+                // 现在的逻辑保持简单：如果存在则用，不存在则报错
+            }
+        }
+    }
     
     // 验证输入文件是否存在
     if (!fs.existsSync(inputJson)) {

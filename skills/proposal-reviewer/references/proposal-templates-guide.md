@@ -8,7 +8,7 @@
 | 后端方案模板 | [backend-proposal-template.md](./proposal-templates/backend-proposal-template.md) | 后端技术方案评审 | 接口设计、数据模型、系统架构、安全性 | 前端专家、后端专家、产品经理 |
 | 架构方案模板 | [architecture-proposal-template.md](./proposal-templates/architecture-proposal-template.md) | 系统架构方案评审 | 架构设计、技术选型、扩展性、高可用 | 前端专家、后端专家、产品经理 |
 | 产品方案模板 | [product-proposal-template.md](./proposal-templates/product-proposal-template.md) | 产品功能方案评审 | 业务价值、用户需求、功能完整性、优先级 | 产品经理、交互设计师 |
-| 重构方案模板 | [refactoring-proposal-template.md](./proposal-templates/refactoring-proposal-template.md) | 系统重构方案评审 | 重构必要性、风险评估、迁移方案、兼容性 | 前端专家、后端专家、产品经理 |
+| 重构方案模板 | [refactoring-proposal-template.md](./proposal-templates/refactoring-proposal-template.md) | 系统重构方案评审 | 重构必要性、风险评估、迁移方案、兼容性、用户体验影响 | 前端专家、后端专家、产品经理、交互设计师 |
 | 性能优化模板 | [performance-optimization-template.md](./proposal-templates/performance-optimization-template.md) | 性能优化方案评审 | 性能瓶颈、优化方案、效果评估、监控方案 | 前端专家、后端专家 |
 
 ## 模板选择建议

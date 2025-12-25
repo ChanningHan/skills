@@ -4,12 +4,10 @@
 
 | 角色名称 | 文件路径 | 关注领域 | 适用场景 |
 |---------|---------|---------|---------|
-| 前端专家 | [frontend-expert.md](./frontend-expert.md) | 前端架构、代码质量、性能、用户体验实现、技术选型 | 前端方案、全栈方案、架构方案（涉及前端部分） |
-| 后端专家 | [backend-expert.md](./backend-expert.md) | 接口设计、数据模型、系统架构、安全性、技术选型 | 后端方案、全栈方案、架构方案、重构方案、性能优化方案 |
-| 产品经理 | [product-manager.md](./product-manager.md) | 业务价值、需求满足度、功能完整性、优先级、可行性 | 产品方案、全栈方案、后端方案、架构方案、重构方案 |
-| 交互设计师 | [ux-designer.md](./ux-designer.md) | 交互流程、用户体验、界面设计、易用性、用户旅程 | 前端方案、产品方案、全栈方案、重构方案 |
-
-> **路径说明**：文件路径使用相对于当前文件位置的路径格式。本文件位于 `references/roles/` 目录下，因此使用 `./xxx.md`；`proposal-templates-index.md` 位于 `references/` 根目录，因此使用 `./proposal-templates/xxx.md`。两者都遵循"相对于各自文件位置"的统一规范。
+| 前端专家 | [frontend-expert.md](./roles/frontend-expert.md) | 前端架构、代码质量、性能、用户体验实现、技术选型 | 前端方案、全栈方案、架构方案（涉及前端部分） |
+| 后端专家 | [backend-expert.md](./roles/backend-expert.md) | 接口设计、数据模型、系统架构、安全性、技术选型 | 后端方案、全栈方案、架构方案、重构方案、性能优化方案 |
+| 产品经理 | [product-manager.md](./roles/product-manager.md) | 业务价值、需求满足度、功能完整性、优先级、可行性 | 产品方案、全栈方案、后端方案、架构方案、重构方案 |
+| 交互设计师 | [ux-designer.md](./roles/ux-designer.md) | 交互流程、用户体验、界面设计、易用性、用户旅程 | 前端方案、产品方案、全栈方案、重构方案 |
 
 ## 角色选择指南
 

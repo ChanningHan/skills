@@ -9,34 +9,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* 主色调 - 现代蓝色系 */
-            --primary: #3b82f6;
+            /* 主色调 - 赛博朋克暗黑系 */
+            --primary: #3b82f6;       /* 亮蓝 */
             --primary-dark: #2563eb;
             --primary-light: #60a5fa;
-            --secondary: #8b5cf6;
-            --accent: #06b6d4;
+            --secondary: #a78bfa;     /* 亮紫 */
+            --accent: #22d3ee;        /* 青色 */
             
-            /* 语义色彩 */
-            --success: #10b981;
-            --success-light: #d1fae5;
-            --warning: #f59e0b;
-            --warning-light: #fef3c7;
-            --error: #ef4444;
-            --error-light: #fee2e2;
-            --info: #3b82f6;
-            --info-light: #dbeafe;
+            /* 语义色彩 - 提高明度适配暗色背景 */
+            --success: #34d399;       /* 亮绿 */
+            --success-light: rgba(52, 211, 153, 0.15);
+            --warning: #fbbf24;       /* 亮黄 */
+            --warning-light: rgba(251, 191, 36, 0.15);
+            --error: #f87171;         /* 亮红 */
+            --error-light: rgba(248, 113, 113, 0.15);
+            --info: #60a5fa;
+            --info-light: rgba(96, 165, 250, 0.15);
             
-            /* 中性色 */
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
+            /* 暗色系中性色 */
+            --bg-body: #0f172a;       /* 深蓝黑背景 */
+            --bg-card: #1e293b;       /* 卡片背景 */
+            --bg-hover: #334155;      /* 悬停背景 */
+            
+            --text-primary: #f8fafc;  /* 主要文字 */
+            --text-secondary: #cbd5e1;/* 次要文字 */
+            --text-muted: #94a3b8;    /* 弱化文字 */
+            
+            --border-light: #334155;  /* 浅边框 */
+            --border-dark: #1e293b;   /* 深边框 */
             
             /* 间距 */
             --spacing-xs: 0.5rem;
@@ -51,11 +51,11 @@
             --radius-lg: 0.75rem;
             --radius-xl: 1rem;
             
-            /* 阴影 */
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            /* 阴影 - 调整为发光效果 */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            --shadow-glow: 0 0 15px rgba(59, 130, 246, 0.3);
             
             /* 过渡 */
             --transition-fast: 150ms ease-in-out;
@@ -76,8 +76,12 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             line-height: 1.7;
-            color: var(--gray-800);
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            color: var(--text-primary);
+            background-color: var(--bg-body);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(34, 211, 238, 0.1) 0px, transparent 50%);
             background-attachment: fixed;
             padding: var(--spacing-lg);
             min-height: 100vh;
@@ -88,11 +92,13 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl);
+            box-shadow: var(--shadow-lg);
             overflow-x: hidden;
             animation: fadeInUp 0.6s ease-out;
+            position: relative;
         }
 
         @keyframes fadeInUp {
@@ -108,27 +114,30 @@
 
         /* 头部区域 */
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
             color: white;
             padding: var(--spacing-xl);
             position: relative;
             overflow: hidden;
+            border-bottom: 1px solid var(--border-light);
         }
 
         .header::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transform: skewX(-20deg) translateX(-150%);
+            animation: shine 8s infinite;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes shine {
+            0% { transform: skewX(-20deg) translateX(-150%); }
+            20% { transform: skewX(-20deg) translateX(150%); }
+            100% { transform: skewX(-20deg) translateX(150%); }
         }
 
         .header-content {
@@ -141,7 +150,10 @@
             font-weight: 700;
             margin-bottom: var(--spacing-md);
             letter-spacing: -0.02em;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 20px rgba(96, 165, 250, 0.2);
         }
 
         .header-meta {
@@ -150,7 +162,7 @@
             gap: var(--spacing-lg);
             margin-top: var(--spacing-md);
             font-size: 0.95rem;
-            opacity: 0.95;
+            color: var(--text-secondary);
         }
 
         .header-meta-item {
@@ -163,9 +175,10 @@
             content: '';
             width: 6px;
             height: 6px;
-            background: white;
+            background: var(--accent);
             border-radius: 50%;
             display: inline-block;
+            box-shadow: 0 0 8px var(--accent);
         }
 
         /* 内容区域 */
@@ -177,11 +190,11 @@
         h2 {
             font-size: 1.75rem;
             font-weight: 600;
-            color: var(--gray-900);
+            color: var(--text-primary);
             margin-top: var(--spacing-xl);
             margin-bottom: var(--spacing-md);
             padding-bottom: var(--spacing-sm);
-            border-bottom: 3px solid var(--primary);
+            border-bottom: 2px solid var(--border-light);
             position: relative;
             display: flex;
             align-items: center;
@@ -194,6 +207,7 @@
             height: 24px;
             background: var(--primary);
             border-radius: 2px;
+            box-shadow: 0 0 10px var(--primary);
         }
 
         h2:first-of-type {
@@ -203,7 +217,7 @@
         h3 {
             font-size: 1.35rem;
             font-weight: 600;
-            color: var(--gray-800);
+            color: var(--text-primary);
             margin-top: var(--spacing-lg);
             margin-bottom: var(--spacing-sm);
         }
@@ -211,7 +225,7 @@
         h4 {
             font-size: 1.1rem;
             font-weight: 600;
-            color: var(--gray-700);
+            color: var(--text-secondary);
             margin-top: var(--spacing-md);
             margin-bottom: var(--spacing-xs);
         }
@@ -223,8 +237,8 @@
 
         /* 元数据卡片 */
         .metadata-card {
-            background: var(--gray-50);
-            border: 1px solid var(--gray-200);
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-lg);
             padding: var(--spacing-md);
             margin-bottom: var(--spacing-lg);
@@ -233,7 +247,7 @@
 
         .metadata-card:hover {
             border-color: var(--primary);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
             transform: translateY(-2px);
         }
 
@@ -251,12 +265,12 @@
 
         .metadata-label {
             font-weight: 600;
-            color: var(--gray-700);
+            color: var(--text-muted);
             min-width: 100px;
         }
 
         .metadata-value {
-            color: var(--gray-800);
+            color: var(--text-secondary);
             flex: 1;
             word-break: break-all;
             overflow-wrap: break-word;
@@ -264,15 +278,17 @@
 
         /* 评分卡片 */
         .score-card {
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(30, 41, 59, 0.8) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             color: white;
             padding: var(--spacing-lg);
             border-radius: var(--radius-lg);
             text-align: center;
             margin: var(--spacing-lg) 0;
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-glow);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .score-card::before {
@@ -282,7 +298,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
             animation: pulse 3s ease-in-out infinite;
         }
 
@@ -300,18 +316,19 @@
             font-size: 3rem;
             font-weight: 700;
             margin: var(--spacing-sm) 0;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
         }
 
         .score-label {
             font-size: 1.1rem;
-            opacity: 0.95;
+            color: var(--text-secondary);
         }
 
         /* 评审块 */
         .review-block {
-            background: white;
-            border: 2px solid var(--gray-200);
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-lg);
             padding: var(--spacing-lg);
             margin-bottom: var(--spacing-lg);
@@ -325,17 +342,19 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 2px;
             height: 100%;
             background: var(--primary);
             transform: scaleY(0);
             transition: transform var(--transition-base);
+            box-shadow: 0 0 10px var(--primary);
         }
 
         .review-block:hover {
             border-color: var(--primary);
-            box-shadow: var(--shadow-lg);
+            background: rgba(30, 41, 59, 0.5);
             transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
         }
 
         .review-block:hover::before {
@@ -354,7 +373,7 @@
         .review-title {
             font-size: 1.35rem;
             font-weight: 600;
-            color: var(--gray-900);
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: var(--spacing-sm);
@@ -364,18 +383,19 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: var(--gray-100);
+            background: var(--bg-hover);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all var(--transition-base);
             font-size: 1.2rem;
-            color: var(--gray-600);
+            color: var(--text-secondary);
         }
 
         .review-toggle:hover {
             background: var(--primary);
             color: white;
+            box-shadow: 0 0 10px var(--primary);
             transform: rotate(90deg);
         }
 
@@ -395,8 +415,8 @@
 
         /* 维度卡片 */
         .dimension {
-            background: var(--gray-50);
-            border-left: 4px solid var(--gray-300);
+            background: rgba(15, 23, 42, 0.4);
+            border-left: 3px solid var(--border-light);
             border-radius: var(--radius-md);
             padding: var(--spacing-md);
             margin-bottom: var(--spacing-md);
@@ -405,8 +425,8 @@
 
         .dimension:hover {
             border-left-color: var(--primary);
-            background: white;
-            box-shadow: var(--shadow-md);
+            background: rgba(30, 41, 59, 0.6);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .dimension-header {
@@ -418,7 +438,7 @@
 
         .dimension-title {
             font-weight: 600;
-            color: var(--gray-800);
+            color: var(--text-primary);
         }
 
         /* 评分徽章 */
@@ -433,31 +453,40 @@
             color: white;
             min-width: 50px;
             transition: all var(--transition-base);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
         .score-badge:hover {
             transform: scale(1.1);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 0 15px currentColor;
         }
 
         .score-badge.excellent {
             background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: #ecfdf5;
+            box-shadow: 0 0 10px rgba(52, 211, 153, 0.4);
         }
 
         .score-badge.good {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #eff6ff;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
         }
 
         .score-badge.average {
             background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+            color: #fffbeb;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
         }
 
         .score-badge.poor {
             background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: #fff7ed;
         }
 
         .score-badge.fail {
             background: linear-gradient(135deg, var(--error) 0%, #dc2626 100%);
+            color: #fef2f2;
         }
 
         /* 列表样式 */
@@ -476,11 +505,13 @@
             position: relative;
             line-height: 1.8;
             transition: all var(--transition-fast);
+            color: var(--text-secondary);
         }
 
         .strengths li:hover, .concerns li:hover, .suggestions li:hover {
             padding-left: 2rem;
-            color: var(--gray-900);
+            color: var(--text-primary);
+            text-shadow: 0 0 1px currentColor;
         }
 
         .strengths li::before {
@@ -497,6 +528,7 @@
             justify-content: center;
             background: var(--success-light);
             border-radius: 50%;
+            box-shadow: 0 0 5px rgba(52, 211, 153, 0.2);
         }
 
         .concerns li::before {
@@ -513,6 +545,7 @@
             justify-content: center;
             background: var(--warning-light);
             border-radius: 50%;
+            box-shadow: 0 0 5px rgba(251, 191, 36, 0.2);
         }
 
         .suggestions li::before {
@@ -527,6 +560,7 @@
             justify-content: center;
             background: var(--info-light);
             border-radius: 50%;
+            box-shadow: 0 0 5px rgba(96, 165, 250, 0.2);
         }
 
         /* 汇总项 */
@@ -538,8 +572,8 @@
             padding: var(--spacing-md);
             margin-bottom: var(--spacing-md);
             border-radius: var(--radius-md);
-            background: white;
-            border-left: 4px solid var(--gray-300);
+            background: rgba(30, 41, 59, 0.4);
+            border-left: 3px solid var(--border-light);
             transition: all var(--transition-base);
             position: relative;
             overflow: hidden;
@@ -557,9 +591,10 @@
         }
 
         .summary-item:hover {
-            border-left-width: 6px;
-            box-shadow: var(--shadow-md);
+            border-left-width: 5px;
+            background: rgba(30, 41, 59, 0.6);
             transform: translateX(4px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .summary-item:hover::before {
@@ -575,18 +610,18 @@
         }
 
         .summary-item.priority-low {
-            border-left-color: var(--gray-400);
+            border-left-color: var(--text-muted);
         }
 
         .summary-item-header {
             font-weight: 600;
-            color: var(--gray-900);
+            color: var(--text-primary);
             margin-bottom: var(--spacing-xs);
         }
 
         .summary-item-meta {
             font-size: 0.9rem;
-            color: var(--gray-600);
+            color: var(--text-muted);
             display: flex;
             flex-wrap: wrap;
             gap: var(--spacing-sm);
@@ -604,34 +639,29 @@
             border-collapse: separate;
             border-spacing: 0;
             margin-top: var(--spacing-md);
-            background: white;
+            background: rgba(30, 41, 59, 0.3);
             border-radius: var(--radius-md);
             overflow: hidden;
             box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
         }
 
         table th {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--text-primary);
             font-weight: 600;
             padding: var(--spacing-md);
             text-align: left;
             font-size: 0.95rem;
             letter-spacing: 0.02em;
-        }
-
-        table th:first-child {
-            border-top-left-radius: var(--radius-md);
-        }
-
-        table th:last-child {
-            border-top-right-radius: var(--radius-md);
+            border-bottom: 1px solid var(--border-light);
         }
 
         table td {
             padding: var(--spacing-md);
-            border-bottom: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--border-light);
             transition: all var(--transition-fast);
+            color: var(--text-secondary);
             word-break: break-word;
             overflow-wrap: break-word;
             max-width: 0;
@@ -642,8 +672,8 @@
         }
 
         table tr:hover td {
-            background: var(--gray-50);
-            transform: scale(1.01);
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--text-primary);
         }
 
         .priority-badge {
@@ -657,22 +687,25 @@
         .priority-p0 {
             background: var(--error-light);
             color: var(--error);
+            border: 1px solid rgba(248, 113, 113, 0.3);
         }
 
         .priority-p1 {
             background: var(--warning-light);
             color: var(--warning);
+            border: 1px solid rgba(251, 191, 36, 0.3);
         }
 
         .priority-p2 {
-            background: var(--gray-200);
-            color: var(--gray-600);
+            background: var(--bg-hover);
+            color: var(--text-muted);
+            border: 1px solid var(--border-light);
         }
 
         /* 结论区域 */
         .conclusion {
-            background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
-            border: 2px solid var(--gray-200);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-lg);
             padding: var(--spacing-lg);
             margin-top: var(--spacing-lg);
@@ -686,12 +719,13 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 2px;
             background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            box-shadow: 0 0 10px var(--primary);
         }
 
         .conclusion h3 {
-            color: var(--gray-900);
+            color: var(--text-primary);
             margin-top: 0;
             margin-bottom: var(--spacing-md);
         }
@@ -706,6 +740,7 @@
             padding-left: 1.75rem;
             position: relative;
             line-height: 1.8;
+            color: var(--text-secondary);
         }
 
         .conclusion li::before {
@@ -715,23 +750,24 @@
             color: var(--primary);
             font-weight: bold;
             font-size: 1.2rem;
+            text-shadow: 0 0 5px var(--primary);
         }
 
         /* 分隔线 */
         hr {
             border: none;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gray-300), transparent);
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-light), transparent);
             margin: var(--spacing-xl) 0;
         }
 
         /* 页脚 */
         .footer {
             text-align: center;
-            color: var(--gray-500);
+            color: var(--text-muted);
             margin-top: var(--spacing-xl);
             padding-top: var(--spacing-lg);
-            border-top: 2px solid var(--gray-200);
+            border-top: 1px solid var(--border-light);
             font-size: 0.9rem;
         }
 
@@ -747,7 +783,7 @@
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
             display: none;
             align-items: center;
             justify-content: center;
@@ -759,7 +795,7 @@
         .back-to-top:hover {
             background: var(--primary-dark);
             transform: translateY(-4px) scale(1.1);
-            box-shadow: var(--shadow-xl);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
         }
 
         .back-to-top.visible {
@@ -813,18 +849,28 @@
         @media print {
             body {
                 background: white;
+                color: black;
                 padding: 0;
+                background-image: none;
             }
 
             .container {
                 box-shadow: none;
+                border: none;
                 border-radius: 0;
+                background: white;
+            }
+
+            h1, h2, h3, h4 {
+                color: black;
+                background: none;
+                -webkit-text-fill-color: initial;
             }
 
             .header {
-                background: var(--primary);
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+                background: white;
+                color: black;
+                border-bottom: 2px solid #333;
             }
 
             .back-to-top {
@@ -838,22 +884,19 @@
             .review-toggle {
                 display: none;
             }
-        }
-
-        /* 加载动画 */
-        @keyframes shimmer {
-            0% {
-                background-position: -1000px 0;
+            
+            .metadata-card, .score-card, .review-block, .dimension {
+                background: white;
+                border: 1px solid #ccc;
+                box-shadow: none;
             }
-            100% {
-                background-position: 1000px 0;
+            
+            .score-badge {
+                border: 1px solid #333;
+                background: none !important;
+                color: black !important;
+                box-shadow: none !important;
             }
-        }
-
-        .loading {
-            background: linear-gradient(90deg, var(--gray-200) 25%, var(--gray-100) 50%, var(--gray-200) 75%);
-            background-size: 1000px 100%;
-            animation: shimmer 2s infinite;
         }
     </style>
 </head>
@@ -1207,7 +1250,7 @@
         // 表格行点击效果
         document.querySelectorAll('table tr').forEach(row => {
             row.addEventListener('click', function() {
-                this.style.backgroundColor = 'var(--gray-100)';
+                this.style.backgroundColor = 'rgba(59, 130, 246, 0.1)';
                 setTimeout(() => {
                     this.style.backgroundColor = '';
                 }, 300);
