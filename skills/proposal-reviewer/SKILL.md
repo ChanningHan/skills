@@ -77,9 +77,53 @@ description: 指导 AI Agent 从多个专业角色视角（技术专家、产品
 
 ## 报告生成
 
-生成可视化报告：`node scripts/generate-markdown.js <input-json> <output-md>` 或 `node scripts/generate-html.js <input-json> <output-html>`
+评审完成后，可按以下步骤生成可视化报告：
 
-数据结构定义和模板文件见：`references/json-schema.md`、`assets/report-templates/markdown-template.md`、`assets/report-templates/html-template.html`
+### 步骤 1：生成 JSON 数据
+
+将评审结果按照标准 JSON 格式输出并保存为文件。JSON 数据结构必须符合 `references/json-schema.md` 中定义的结构，包含：
+- `metadata`：方案基本信息和评审人员信息
+- `reviews`：各角色的评审意见（维度评价和整体评价）
+- `summary`：评审汇总（整体评分、关键优势、主要担忧、改进建议）
+- `actionItems`：行动项列表（可选）
+- `conclusion`：结论和后续建议（可选）
+
+### 步骤 2：使用脚本生成报告
+
+使用脚本将 JSON 数据转换为可视化报告：
+
+**生成 Markdown 报告**：
+```bash
+node scripts/generate-markdown.js <input-json> <output-md>
+```
+
+**生成 HTML 报告**：
+```bash
+node scripts/generate-html.js <input-json> <output-html>
+```
+
+**输出目录结构和文件命名**：
+
+所有评审输出文件应保存在统一的目录中，目录命名格式：`review-{方案名称}-{时间戳}/`
+
+示例：
+```
+review-api-design-20250127-143022/
+├── data.json              # 结构化评审数据（JSON 格式）
+├── report.md              # Markdown 格式报告
+└── report.html            # HTML 格式报告（可视化）
+```
+
+参数说明：
+- `input-json`：步骤 1 生成的 JSON 文件路径（对应目录中的 `data.json`）
+- `output-md`：输出的 Markdown 报告路径（对应目录中的 `report.md`）
+- `output-html`：输出的 HTML 报告路径（对应目录中的 `report.html`）
+
+### 参考资料
+
+- [JSON 数据结构定义](./references/json-schema.md) - 完整的 JSON Schema 和数据示例
+- [Markdown 模板](./assets/report-templates/markdown-template.md) - Markdown 报告模板
+- [HTML 模板](./assets/report-templates/html-template.html) - HTML 报告模板
 
 ## 注意事项
 
