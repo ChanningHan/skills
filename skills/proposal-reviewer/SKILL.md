@@ -1,5 +1,5 @@
 ---
-name: tech-proposal-reviewer
+name: proposal-reviewer
 description: 指导 AI Agent 从多个专业角色视角（前端专家、后端专家、产品经理、交互设计师）评审技术方案文档，并生成综合评审报告。
 license: 内部使用
 ---

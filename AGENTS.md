@@ -225,7 +225,7 @@
 
 ### 命名规范
 
-- Skill 目录名：kebab-case（如 `tech-proposal-reviewer`）
+- Skill 目录名：kebab-case（如 `proposal-reviewer`）
 - 文档文件名：`SKILL.md`（主文档）、其他文档使用 kebab-case.md
 - 脚本文件名：kebab-case.py/js/sh（如 `process-data.py`、`setup.sh`）
 - 示例文件名：kebab-case.md（如 `sample-review-report.md`）
@@ -354,6 +354,10 @@ skills/
   - API 使用必须基于实际文档或源码
   - 技术方案必须基于已验证的技术栈和标准
   - 配置项和元数据必须确实存在于相关文件或文档中
+  - **文档时间信息必须使用真实的当前时间**：
+    - 文档中的创建日期、最后更新日期等时间字段必须使用真实的当前日期，禁止使用固定的、示例性的或推测的日期
+    - 需要使用系统当前时间时，应通过工具获取真实时间（如运行 `date` 命令）
+    - 日期格式统一使用 ISO 8601 格式：“YYYY-MM-DD HH:mm”（如：2025-12-25 21:49）
   
 - **不确定时的正确做法**：
   - ✅ 明确告知开发者"我不确定，需要查阅..."
@@ -400,7 +404,7 @@ skills/
 - [PEP 8](https://pep8.org/) - Python 代码风格指南
 - [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html) - Google Python 代码规范
 - [JavaScript Style Guide](https://github.com/airbnb/javascript) - Airbnb JavaScript 代码规范
-- [现有 Skill 示例](./skills/tech-proposal-reviewer/SKILL.md) - 参考现有 Skill 的结构和格式
+- [现有 Skill 示例](./skills/proposal-reviewer/SKILL.md) - 参考现有 Skill 的结构和格式
 
 <skills_system priority="1">
 
@@ -424,7 +428,13 @@ Usage notes:
 <available_skills>
 
 <skill>
-<name>tech-proposal-reviewer</name>
+<name>prompt-optimizer</name>
+<description>Prompt engineering expert that helps users craft optimized prompts using 57 proven frameworks. Use when users want to optimize prompts, improve AI instructions, create better prompts for specific tasks, or need help selecting the best prompt framework for their use case.</description>
+<location>project</location>
+</skill>
+
+<skill>
+<name>proposal-reviewer</name>
 <description>指导 AI Agent 从多个专业角色视角（前端专家、后端专家、产品经理、交互设计师）评审技术方案文档，并生成综合评审报告。</description>
 <location>project</location>
 </skill>

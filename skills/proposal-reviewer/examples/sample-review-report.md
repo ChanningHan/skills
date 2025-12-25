@@ -881,4 +881,4 @@ API 设计简洁易用，文档和示例完整，符合开发者习惯。但缺�
 **附录**
 
 - 技术方案原文：`page-skill/docs/页面能力暴露Skill系统技术方案.md`
-- 评审 Skill 文档：`doc/tech-proposal-reviewer/SKILL.md`
+- 评审 Skill 文档：`skills/proposal-reviewer/SKILL.md`
