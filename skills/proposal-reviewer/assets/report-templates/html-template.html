@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{metadata.proposalName}} 技术方案评审报告</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            color: #666;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        .metadata {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .metadata ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .metadata li {
+            padding: 5px 0;
+        }
+
+        .metadata strong {
+            color: #2c3e50;
+            display: inline-block;
+            width: 120px;
+        }
+
+        .review-block {
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #fafafa;
+        }
+
+        .dimension {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-left: 3px solid #95a5a6;
+            border-radius: 3px;
+        }
+
+        .dimension h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .score {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .score.excellent {
+            background-color: #27ae60;
+        }
+
+        .score.good {
+            background-color: #3498db;
+        }
+
+        .score.average {
+            background-color: #f39c12;
+        }
+
+        .score.poor {
+            background-color: #e67e22;
+        }
+
+        .score.fail {
+            background-color: #e74c3c;
+        }
+
+        .overall-score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .strengths, .concerns, .suggestions {
+            margin-top: 10px;
+        }
+
+        .strengths ul, .concerns ul, .suggestions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .strengths li {
+            padding: 5px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .strengths li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .concerns li {
+            padding: 5px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .concerns li:before {
+            content: "⚠";
+            position: absolute;
+            left: 0;
+            color: #e67e22;
+        }
+
+        .suggestions li {
+            padding: 5px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .suggestions li:before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+
+        .summary-section {
+            margin-top: 30px;
+        }
+
+        .summary-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background-color: #fff;
+            border-left: 4px solid #3498db;
+        }
+
+        .summary-item.priority-high {
+            border-left-color: #e74c3c;
+        }
+
+        .summary-item.priority-medium {
+            border-left-color: #f39c12;
+        }
+
+        .summary-item.priority-low {
+            border-left-color: #95a5a6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        table th {
+            background-color: #3498db;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .priority-p0 {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .priority-p1 {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .priority-p2 {
+            color: #95a5a6;
+        }
+
+        .conclusion {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+
+        .conclusion h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .conclusion ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .conclusion li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .conclusion li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 30px 0;
+        }
+
+        .footer {
+            text-align: center;
+            color: #95a5a6;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{metadata.proposalName}} 技术方案评审报告</h1>
+
+        <div class="metadata">
+            <p><strong>评审日期</strong>：{{metadata.reviewDate}}</p>
+            <p><strong>评审人员</strong>：{{#each metadata.reviewers}}{{this.role}}{{#if this.name}}（{{this.name}}）{{/if}}{{#unless @last}}、{{/unless}}{{/each}}</p>
+        </div>
+
+        <h2>一、评审概述</h2>
+
+        <div class="metadata">
+            <ul>
+                <li><strong>方案名称</strong>：{{metadata.proposalName}}</li>
+                <li><strong>方案版本</strong>：{{metadata.proposalVersion}}</li>
+                {{#if metadata.createdDate}}<li><strong>创建日期</strong>：{{metadata.createdDate}}</li>{{/if}}
+                {{#if metadata.proposalPath}}<li><strong>方案路径</strong>：{{metadata.proposalPath}}</li>{{/if}}
+            </ul>
+        </div>
+
+        {{#if metadata.reviewScope}}
+        <h3>评审范围</h3>
+        <p>{{metadata.reviewScope}}</p>
+        {{/if}}
+
+        <h3>评审结论</h3>
+        <div class="overall-score">
+            整体评分：{{summary.overallScore}} / 5<br>
+            <span style="font-size: 18px;">是否建议通过：{{summary.recommendation}}</span>
+        </div>
+
+        <hr>
+
+        <h2>二、各角色评审意见</h2>
+
+        {{#each reviews}}
+        <div class="review-block">
+            <h3>{{@index}}.{{inc @index}} {{this.role}}评审意见</h3>
+
+            <h4>评审维度评价</h4>
+
+            {{#each this.dimensions}}
+            <div class="dimension">
+                <h4>{{inc @index}}. {{this.name}} <span class="score score-{{getScoreClass this.score}}">{{this.score}}</span></h4>
+                <p>{{this.evaluation}}</p>
+
+                {{#if this.strengths}}
+                <div class="strengths">
+                    <strong>优势：</strong>
+                    <ul>
+                        {{#each this.strengths}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{/if}}
+
+                {{#if this.issues}}
+                <div class="concerns">
+                    <strong>问题：</strong>
+                    <ul>
+                        {{#each this.issues}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{/if}}
+
+                {{#if this.suggestions}}
+                <div class="suggestions">
+                    <strong>建议：</strong>
+                    <ul>
+                        {{#each this.suggestions}}
+                        <li>{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{/if}}
+            </div>
+            {{/each}}
+
+            <h4>整体评价</h4>
+
+            {{#if this.overall.strengths}}
+            <div class="strengths">
+                <strong>优势：</strong>
+                <ul>
+                    {{#each this.overall.strengths}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            {{/if}}
+
+            {{#if this.overall.concerns}}
+            <div class="concerns">
+                <strong>担忧：</strong>
+                <ul>
+                    {{#each this.overall.concerns}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            {{/if}}
+
+            {{#if this.overall.suggestions}}
+            <div class="suggestions">
+                <strong>建议：</strong>
+                <ul>
+                    {{#each this.overall.suggestions}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            {{/if}}
+
+            <div class="overall-score">
+                综合评分：{{this.overall.score}} / 5
+            </div>
+        </div>
+        {{/each}}
+
+        <hr>
+
+        <h2>三、评审汇总</h2>
+
+        {{#if summary.keyStrengths}}
+        <div class="summary-section">
+            <h3>3.1 关键优势</h3>
+            {{#each summary.keyStrengths}}
+            <div class="summary-item priority-{{this.priority}}">
+                <strong>{{inc @index}}. {{this.content}}</strong>
+                <p>优先级：{{this.priority}}{{#if this.mentionedBy}} | 提出者：{{#each this.mentionedBy}}{{this}}{{#unless @last}}、{{/unless}}{{/each}}{{/if}}</p>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        {{#if summary.mainConcerns}}
+        <div class="summary-section">
+            <h3>3.2 主要担忧</h3>
+            {{#each summary.mainConcerns}}
+            <div class="summary-item priority-{{this.severity}}">
+                <strong>{{inc @index}}. {{this.content}}</strong>
+                <p>提出者：{{#each this.mentionedBy}}{{this}}{{#unless @last}}、{{/unless}}{{/each}} | 严重程度：{{this.severity}}{{#if this.impact}} | 影响范围：{{this.impact}}{{/if}}</p>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+
+        {{#if summary.improvements}}
+        <div class="summary-section">
+            <h3>3.3 改进建议</h3>
+            {{#groupBy summary.improvements "category"}}
+            {{#each this}}
+            <h4>{{@key}}相关</h4>
+            <ul>
+                {{#each this}}
+                <li>{{this.content}}{{#if this.mentionedBy}}（提出者：{{#each this.mentionedBy}}{{this}}{{#unless @last}}、{{/unless}}{{/each}}）{{/if}}</li>
+                {{/each}}
+            </ul>
+            {{/each}}
+            {{/groupBy}}
+        </div>
+        {{/if}}
+
+        {{#if actionItems}}
+        <hr>
+
+        <h2>四、行动项</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>优先级</th>
+                    <th>行动项</th>
+                    <th>类别</th>
+                    <th>建议责任人</th>
+                    <th>预期完成时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each actionItems}}
+                <tr>
+                    <td class="priority-{{this.priority}}">{{this.priority}}</td>
+                    <td>{{this.content}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{#if this.assignee}}{{this.assignee}}{{else}}-{{/if}}</td>
+                    <td>{{#if this.dueDate}}{{this.dueDate}}{{else}}-{{/if}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <p><strong>优先级说明</strong>：</p>
+        <ul>
+            <li><strong>P0</strong>：必须在方案实施前解决的问题</li>
+            <li><strong>P1</strong>：建议在方案实施时同步解决的问题</li>
+            <li><strong>P2</strong>：可以在后续迭代中优化的问题</li>
+        </ul>
+        {{/if}}
+
+        {{#if conclusion}}
+        <hr>
+
+        <h2>五、评审结论</h2>
+
+        <div class="conclusion">
+            <p>{{conclusion.overallEvaluation}}</p>
+
+            {{#if conclusion.prerequisites}}
+            <h3>关键前置条件</h3>
+            <ul>
+                {{#each conclusion.prerequisites}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            {{/if}}
+
+            {{#if conclusion.nextSteps}}
+            <h3>后续建议</h3>
+            <ul>
+                {{#each conclusion.nextSteps}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            {{/if}}
+        </div>
+        {{/if}}
+
+        <div class="footer">
+            <p>评审报告结束</p>
+        </div>
+    </div>
+
+    <script>
+        // Handlebars helper functions (需要在模板渲染前注册)
+        // 这些函数应该在生成 HTML 时由脚本处理，这里仅作参考
+        /*
+        Handlebars.registerHelper('inc', function(value) {
+            return parseInt(value) + 1;
+        });
+
+        Handlebars.registerHelper('getScoreClass', function(score) {
+            if (score >= 4.5) return 'excellent';
+            if (score >= 3.5) return 'good';
+            if (score >= 2.5) return 'average';
+            if (score >= 1.5) return 'poor';
+            return 'fail';
+        });
+
+        Handlebars.registerHelper('groupBy', function(array, key) {
+            // 分组逻辑
+        });
+        */
+    </script>
+</body>
+</html>
