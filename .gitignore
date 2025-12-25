@@ -68,3 +68,5 @@ yarn-error.log*
 *.zip
 *.tar.gz
 *.rar
+
+.claude
