@@ -1,0 +1,70 @@
+# 操作系统文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE 和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Cursor IDE
+.cursor/
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+*.bak
+*.cache
+
+# Python (如果将来使用)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Node.js (如果将来使用)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+.pnp.*
+.yarn/
+
+# 环境变量文件
+.env
+.env.local
+.env.*.local
+
+# 其他
+*.zip
+*.tar.gz
+*.rar
