@@ -51,7 +51,7 @@ description: 指导 AI Agent 从多个专业角色视角（技术专家、产品
    - 主要涉及文章内容、编辑、写作 → `proposal-templates/article-review-template.md`
 3. **选择模板**：选择最符合方案类型的模板
 
-所有可用模板见：[模板汇总](./references/template-selection-guide.md)
+所有可用模板见：[模板汇总](./references/proposal-templates-guide.md)
 
 ### 多模板组合
 
@@ -138,4 +138,4 @@ review-api-design-20250127-143022/
 
 - [角色定义汇总](./references/roles/index.md) - 所有可用角色的汇总表格和选择指南
 - [评分标准指南](./references/scoring-guide.md) - 评分等级和权重定义
-- [模板汇总](./references/template-selection-guide.md) - 所有可用模板的汇总表格
+- [模板汇总](./references/proposal-templates-guide.md) - 所有可用模板的汇总表格
