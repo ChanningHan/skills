@@ -13,7 +13,14 @@ description: 指导 AI Agent 从多个专业角色视角（技术专家、产品
 2. **分析方案结构**：提取核心要素（比如对于技术方案：背景、目标、架构、方案选型、实施计划、风险评估等；对于文章：提取主题、结构、内容要点、目标受众等。应该根据方案的类型，提取相应的核心要素）
 3. **角色评审**：根据方案类型选择合适的评审角色，从各角色的专业视角独立评审
 4. **汇总评审意见**：整理各角色意见，识别共性问题和分歧点，提取关键优势和担忧
-5. **生成评审报告**：按照标准格式生成评审报告并保存
+5. **生成评审报告**：**必须严格按照以下步骤执行，禁止跳过任何步骤**：
+   - **步骤 5.0：确定报告目录位置**：报告目录必须与被评审文档**同级**，目录命名格式：`{方案名称}-review-{时间戳}/`（见"报告生成"章节的详细说明）
+   - **步骤 5.1：生成 JSON 数据**：将评审结果按照标准 JSON 格式输出并保存到报告目录中的 `data.json` 文件（必须符合 `references/json-schema.md` 中定义的结构）
+   - **步骤 5.2：使用脚本生成 Markdown 报告**：执行 `node scripts/generate-markdown.js <input-json> <output-md>` 生成 Markdown 报告
+   - **步骤 5.3：使用脚本生成 HTML 报告**：执行 `node scripts/generate-html.js <input-json> <output-html>` 生成 HTML 报告
+   - **⚠️ 重要**：
+     - 禁止直接生成 Markdown 或 HTML 报告，必须先生成 JSON，然后通过脚本转换
+     - 报告目录必须与被评审文档同级，确保输出位置可预测
 
 ## 角色选择
 
@@ -78,9 +85,13 @@ description: 指导 AI Agent 从多个专业角色视角（技术专家、产品
 
 ## 报告生成
 
-评审完成后，可按以下步骤生成可视化报告：
+**⚠️ 重要：报告生成是评审流程的必需步骤，必须严格按照以下流程执行，禁止跳过任何步骤或直接生成报告文件。**
 
-### 步骤 1：生成 JSON 数据
+评审完成后，**必须**按以下步骤生成可视化报告：
+
+### 步骤 1：生成 JSON 数据（必需）
+
+**⚠️ 这是报告生成的第一步，必须首先完成。禁止跳过此步骤直接生成 Markdown 或 HTML 报告。**
 
 将评审结果按照标准 JSON 格式输出并保存为文件。JSON 数据结构必须符合 `references/json-schema.md` 中定义的结构，包含：
 - `metadata`：方案基本信息和评审人员信息
@@ -89,31 +100,80 @@ description: 指导 AI Agent 从多个专业角色视角（技术专家、产品
 - `actionItems`：行动项列表（可选）
 - `conclusion`：结论和后续建议（可选）
 
-### 步骤 2：使用脚本生成报告
+### 步骤 2：使用脚本生成报告（必需）
+
+**⚠️ 必须使用脚本将 JSON 数据转换为报告，禁止手动编写 Markdown 或 HTML 报告。**
 
 使用脚本将 JSON 数据转换为可视化报告：
 
 **生成 Markdown 报告**：
 ```bash
+# 脚本路径相对于 skill 目录：skills/proposal-reviewer/scripts/generate-markdown.js
 node scripts/generate-markdown.js <input-json> <output-md>
 ```
 
 **生成 HTML 报告**：
 ```bash
+# 脚本路径相对于 skill 目录：skills/proposal-reviewer/scripts/generate-html.js
 node scripts/generate-html.js <input-json> <output-html>
 ```
 
-**输出目录结构和文件命名**：
+**执行示例**：
 
-所有评审输出文件应保存在统一的目录中，目录命名格式：`review-{方案名称}-{时间戳}/`
+假设被评审文档路径为：`/path/to/project/docs/api-design-proposal.md`
 
-示例：
+```bash
+# 1. 确定报告目录路径（与被评审文档同级）
+# 报告目录：/path/to/project/docs/api-design-proposal-review-20250127-143022/
+
+# 2. 先生成 JSON 数据文件（步骤 1）
+# 保存为：/path/to/project/docs/api-design-proposal-review-20250127-143022/data.json
+
+# 3. 使用脚本生成 Markdown 报告（步骤 2.1）
+node scripts/generate-markdown.js \
+  /path/to/project/docs/api-design-proposal-review-20250127-143022/data.json \
+  /path/to/project/docs/api-design-proposal-review-20250127-143022/report.md
+
+# 4. 使用脚本生成 HTML 报告（步骤 2.2）
+node scripts/generate-html.js \
+  /path/to/project/docs/api-design-proposal-review-20250127-143022/data.json \
+  /path/to/project/docs/api-design-proposal-review-20250127-143022/report.html
 ```
-review-api-design-20250127-143022/
-├── data.json              # 结构化评审数据（JSON 格式）
-├── report.md              # Markdown 格式报告
-└── report.html            # HTML 格式报告（可视化）
+
+**输出目录位置和文件命名**：
+
+**⚠️ 重要：报告目录位置规则**
+
+1. **目录位置**：报告目录必须与被评审文档**同级**（在同一目录层级）
+2. **目录命名格式**：`{方案名称}-review-{时间戳}/`
+   - `{方案名称}`：从被评审文档的文件名或内容中提取（去除扩展名，使用 kebab-case）
+   - `{时间戳}`：格式为 `YYYYMMDD-HHMMSS`（24小时制）
+   - **命名优势**：使用方案名称作为前缀，在文件列表按名称排序时，报告目录会紧挨着被评审文档，便于查找和关联
+3. **目录结构**：所有评审输出文件保存在该目录中
+
+**示例场景**：
+
+假设被评审文档路径为：`/path/to/project/docs/api-design-proposal.md`
+
+则报告目录应为：`/path/to/project/docs/api-design-proposal-review-20250127-143022/`
+
+目录结构示例（按名称排序时，报告目录紧挨着被评审文档）：
 ```
+/path/to/project/docs/
+├── api-design-proposal.md                         # 被评审文档
+├── api-design-proposal-review-20250127-143022/    # 报告目录（与被评审文档同级，排序时相邻）
+│   ├── data.json              # 结构化评审数据（JSON 格式）
+│   ├── report.md              # Markdown 格式报告
+│   └── report.html            # HTML 格式报告（可视化）
+└── other-document.md                              # 其他文档
+```
+
+**确定报告目录路径的方法**：
+1. 获取被评审文档的绝对路径
+2. 提取文档所在目录路径
+3. 提取文档文件名（不含扩展名）作为方案名称
+4. 生成时间戳（格式：`YYYYMMDD-HHMMSS`）
+5. 组合生成报告目录路径：`{文档所在目录}/{方案名称}-review-{时间戳}/`
 
 参数说明：
 - `input-json`：步骤 1 生成的 JSON 文件路径（对应目录中的 `data.json`）
@@ -133,6 +193,12 @@ review-api-design-20250127-143022/
 3. **建设性意见**：不仅要指出问题，还要提供改进建议
 4. **客观公正**：基于事实和专业知识评审，避免主观臆断
 5. **结构化输出**：严格按照定义的格式输出评审意见
+6. **⚠️ 报告生成流程**：**必须严格按照"报告生成"章节定义的流程执行**：
+   - **报告目录位置**：报告目录必须与被评审文档**同级**（在同一目录层级），确保输出位置可预测
+   - **目录命名**：使用格式 `{方案名称}-review-{时间戳}/`，其中方案名称从被评审文档文件名提取（去除扩展名，kebab-case），时间戳格式为 `YYYYMMDD-HHMMSS`
+   - **生成顺序**：禁止直接生成 Markdown 或 HTML 报告文件，必须先生成 JSON 数据文件（`data.json`），然后使用脚本转换
+   - **脚本使用**：必须使用 `scripts/generate-markdown.js` 脚本生成 Markdown 报告，必须使用 `scripts/generate-html.js` 脚本生成 HTML 报告
+   - **文件保存**：所有输出文件（`data.json`、`report.md`、`report.html`）必须保存在报告目录中
 
 ## 参考资料
 
