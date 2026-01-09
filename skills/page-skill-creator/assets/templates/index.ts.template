@@ -1,0 +1,23 @@
+import type { UseInitPageSkillOptions } from '@ali/page-skill-react';
+import SKILL_MD_CONTENT from './SKILL.md';
+import { toolDefinitions } from './tools';
+import { references } from './references';
+import { SKILL_NAME } from './tools/constants';
+
+/**
+ * {{PASCAL_CASE_NAME}} PageSkill 配置
+ *
+ * 统一导出 skill 的所有配置项，便于在 layout.tsx 中直接引用
+ */
+export const skillConfig: UseInitPageSkillOptions = {
+  skillName: SKILL_NAME,
+  description: SKILL_MD_CONTENT,
+  tools: toolDefinitions,
+  references,
+};
+
+// 单独导出各个配置项（便于按需引用）
+export { SKILL_NAME } from './tools/constants';
+export { SKILL_MD_CONTENT } from './SKILL.md';
+export { toolDefinitions } from './tools';
+export { references } from './references';

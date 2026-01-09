@@ -1,0 +1,20 @@
+import type { ToolDefinition } from '@ali/page-skill-react';
+import { exampleToolDefinitions } from './example';
+
+/**
+ * 所有工具定义汇总（主入口）
+ *
+ * 工具按页面/功能维度分类：
+ * - example/: 示例工具（TODO: 替换为实际分类）
+ *
+ * 添加新工具时：
+ * 1. 根据工具所属页面/功能，在对应目录下创建工具文件
+ * 2. 在该目录的 index.ts 中导出工具定义
+ * 3. 在此文件中导入并添加到 toolDefinitions 数组
+ */
+export const toolDefinitions: ToolDefinition[] = [
+  ...exampleToolDefinitions,
+];
+
+// 导出各个分类的工具（便于按需引用）
+export { exampleToolDefinitions } from './example';

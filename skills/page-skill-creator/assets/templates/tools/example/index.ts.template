@@ -1,0 +1,8 @@
+import { exampleTool } from './exampleTool';
+
+/**
+ * 示例工具分类
+ *
+ * TODO: 替换为实际的工具分类（如 list、editor 等）
+ */
+export const exampleToolDefinitions = [exampleTool] as const;

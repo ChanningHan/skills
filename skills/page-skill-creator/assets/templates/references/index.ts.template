@@ -1,0 +1,20 @@
+import type { ReferenceItem } from '@ali/page-skill-react';
+import { EXAMPLE_SOP } from './example-sop.md';
+
+/**
+ * 所有参考文档汇总（主入口）
+ *
+ * 添加新参考文档时：
+ * 1. 在 references 目录下创建新的 .md.ts 文件
+ * 2. 在此文件中导入并添加到 references 数组
+ * 3. 在 SKILL.md.ts 中添加引用链接
+ */
+export const references: ReferenceItem[] = [
+  {
+    name: 'EXAMPLE_SOP',
+    content: EXAMPLE_SOP,
+  },
+];
+
+// 单独导出每个参考文档（便于按需引用）
+export { EXAMPLE_SOP } from './example-sop.md';

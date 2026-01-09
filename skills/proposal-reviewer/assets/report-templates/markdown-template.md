@@ -38,7 +38,7 @@
 ## 二、各角色评审意见
 
 {{#each reviews}}
-### {{@index}}.{{inc @index}} {{this.role}}评审意见
+### {{inc @index}}. {{this.role}}评审意见
 
 #### 评审维度评价
 

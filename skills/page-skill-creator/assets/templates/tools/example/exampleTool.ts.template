@@ -1,0 +1,23 @@
+import { defineTool, z } from '@ali/page-skill-react';
+import { TOOL_NAMES } from '../constants';
+
+/**
+ * 示例工具定义
+ *
+ * 使用 Zod 定义工具的好处：
+ * - 单一数据源：同时生成 JSON Schema 和 TypeScript 类型
+ * - 类型安全：自动推导参数类型
+ * - 可选运行时校验：tool.zodSchema.parse(args)
+ */
+export const exampleTool = defineTool(({ z }) => ({
+  name: TOOL_NAMES.EXAMPLE_TOOL,
+  description: 'TODO: 工具描述，包含功能说明和适用场景。📍 标注适用页面。',
+  zodSchema: z.object({
+    // TODO: 定义工具参数
+    param1: z.string().describe('参数1说明'),
+    param2: z.number().optional().describe('参数2说明（可选）'),
+  }),
+}));
+
+// 导出类型（从 zodSchema 自动提取）
+export type ExampleToolInput = z.infer<typeof exampleTool.zodSchema>;

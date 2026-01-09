@@ -1,0 +1,29 @@
+/**
+ * PageSkill 常量定义
+ *
+ * 包含 Skill 名称和工具名称常量，作为单一数据源，确保类型安全和避免拼写错误。
+ */
+
+/**
+ * Skill 名称常量
+ */
+export const SKILL_NAME = '{{SKILL_NAME}}' as const;
+
+/**
+ * 工具名称常量对象（单一数据源）
+ *
+ * 使用 as const 确保类型推导为精确的字面量类型。
+ * 工具定义文件应引用这些常量，避免硬编码字符串。
+ *
+ * 命名规则：大写下划线分隔（UPPER_SNAKE_CASE）
+ */
+export const TOOL_NAMES = {
+  // === 示例工具 ===
+  /** 示例工具：TODO 替换为实际工具 */
+  EXAMPLE_TOOL: `${SKILL_NAME}_exampleTool`,
+} as const satisfies Record<string, `${typeof SKILL_NAME}_${string}`>;
+
+/**
+ * 工具名称类型（所有工具名称的联合类型）
+ */
+export type ToolName = (typeof TOOL_NAMES)[keyof typeof TOOL_NAMES];
