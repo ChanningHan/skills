@@ -84,6 +84,7 @@ function replaceTemplateVars(content, skillName) {
 const templateMappings = [
   { template: 'index.ts.template', output: 'index.ts' },
   { template: 'SKILL.md.ts.template', output: 'SKILL.md.ts' },
+  { template: 'AGENTS.md.template', output: 'AGENTS.md' },
   { template: 'tools/constants.ts.template', output: 'tools/constants.ts' },
   { template: 'tools/index.ts.template', output: 'tools/index.ts' },
   { template: 'tools/example/index.ts.template', output: 'tools/example/index.ts' },

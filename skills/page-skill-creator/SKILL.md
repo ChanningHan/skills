@@ -39,6 +39,7 @@ node scripts/init_page_skill.js my-app-skill --path ./src/skills
 src/skills/my-app-skill/
 ├── index.ts              # 统一导出配置
 ├── SKILL.md.ts           # Skill 说明文档
+├── AGENTS.md             # AI Agent 开发指南（指引 AI 使用 page-skill-creator）
 ├── tools/
 │   ├── constants.ts      # Skill 名称常量
 │   ├── index.ts          # 工具注册表（useRegisterTools、definitions）

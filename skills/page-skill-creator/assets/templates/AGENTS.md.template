@@ -1,0 +1,33 @@
+# AI Agent 开发指南
+
+> **重要**：开发 PageSkill 相关功能前，请先加载 `page-skill-creator` Skill 获取完整的开发指南。
+> 
+> ```bash
+> openskills read page-skill-creator
+> ```
+
+## PageSkill 工具变化检查清单
+
+**任何工具的新增、修改、删除都必须完成以下步骤：**
+
+### 核心代码（必须）
+
+```text
+1. tools/{category}/newTool.ts → 创建/修改/删除工具定义文件（使用 defineTool + Zod）
+2. tools/{category}/index.ts   → 添加/移除分类导出数组中的引用
+3. tools/index.ts              → 确保 createToolRegistry 包含新分类
+4. 业务组件                     → useRegisterTools 注册/更新/移除实现逻辑(handler)
+```
+
+### 文档同步（必须）
+
+```text
+5. references/*.md.ts → 更新 SOP 文档中的工具使用示例和说明
+6. SKILL.md.ts        → 如有必要，更新工作流程说明
+```
+
+---
+
+**记住：代码 4 步 + 文档 2 步 = 完整 6 步，一个都不能少！**
+
+**详细的工具定义模板和示例请参考 `page-skill-creator` Skill。**
