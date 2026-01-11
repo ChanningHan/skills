@@ -72,12 +72,13 @@ export default function Layout() {
 ### 4. 在业务组件注册工具
 
 ```typescript
-import { useRegisterTools } from '@ali/page-skill-react';
-import { TOOL_NAMES } from '@/skills/my-app-skill/tools/constants';
+// 从 tools/index.ts 引入类型安全的 useRegisterTools
+import { useRegisterTools } from '@/skills/my-app-skill/tools';
 
 function MyPage() {
+  // IDE 自动提示所有可用工具名，args 类型自动推导
   useRegisterTools({
-    [TOOL_NAMES.MY_TOOL]: async (args) => {
+    'my-app-skill_myTool': async (args) => {
       return await doSomething(args); // 直接返回，SDK 自动包装
     },
   });
@@ -102,8 +103,8 @@ src/skills/
     ├── index.ts            # 统一导出 skillConfig
     ├── SKILL.md.ts         # Skill 说明文档
     ├── tools/
-    │   ├── constants.ts    # 工具名称常量
-    │   ├── index.ts        # 工具定义汇总
+    │   ├── constants.ts    # Skill 名称常量
+    │   ├── index.ts        # 工具注册表（useRegisterTools、definitions）
     │   └── {category}/     # 按页面/功能分类
     │       ├── index.ts
     │       └── myTool.ts
@@ -136,40 +137,39 @@ src/skills/
 
 ## tools 开发指南
 
-### 1. 定义工具常量
+工具开发只需两步：**定义** → **实现**。通过 `createToolRegistry` 实现类型安全的自动推导。
+
+### 1. 定义工具
+
+使用 `defineTool` 定义单个工具，通过 Zod Schema 同时生成 JSON Schema 和 TypeScript 类型：
 
 ```typescript
-// tools/constants.ts
-export const SKILL_NAME = 'my-app-skill' as const;
-
-export const TOOL_NAMES = {
-  SEARCH_ITEM: `${SKILL_NAME}_searchItem`,
-  SAVE_FORM: `${SKILL_NAME}_saveForm`,
-} as const;
-```
-
-### 2. 使用 Zod 定义工具
-
-**为什么使用 Zod？**
-
-- **单一数据源**：一份 zodSchema 同时生成 JSON Schema 和 TypeScript 类型
-- **类型安全**：自动推导参数类型
-- **运行时校验**：可选使用 `tool.zodSchema.parse(args)`
-
-```typescript
-import { defineTool, z } from '@ali/page-skill-react';
-import { TOOL_NAMES } from '../constants';
+// tools/list/searchItem.ts
+import { defineTool } from '@ali/page-skill-react';
+import { SKILL_NAME } from '../constants';
 
 export const searchItemTool = defineTool(({ z }) => ({
-  name: TOOL_NAMES.SEARCH_ITEM,
+  name: `${SKILL_NAME}_searchItem`,
   description: '根据关键词搜索。📍 仅列表页可用。',
   zodSchema: z.object({
     keyword: z.string().describe('搜索关键词'),
     page: z.number().optional().default(1).describe('页码'),
   }),
 }));
+```
 
-export type SearchItemInput = z.infer<typeof searchItemTool.zodSchema>;
+### 2. 汇总并创建注册表
+
+使用 `createToolRegistry` 汇总所有工具定义，生成类型安全的 `useRegisterTools` Hook：
+
+```typescript
+// tools/index.ts
+import { createToolRegistry } from '@ali/page-skill-react';
+import { searchItemTool } from './list/searchItem';
+
+export const { useRegisterTools, definitions } = createToolRegistry([
+  searchItemTool,
+] as const);
 ```
 
 ### 3. 返回值自动包装

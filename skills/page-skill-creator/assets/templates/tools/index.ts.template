@@ -1,8 +1,12 @@
-import type { ToolDefinition } from '@ali/page-skill-react';
+import { createToolRegistry } from '@ali/page-skill-react';
 import { exampleToolDefinitions } from './example';
 
 /**
- * 所有工具定义汇总（主入口）
+ * 工具注册表（主入口）
+ *
+ * 使用 createToolRegistry 创建类型安全的工具注册表：
+ * - useRegisterTools: 类型安全的工具注册 Hook，自动推导参数类型
+ * - definitions: 工具定义数组，用于构建 SkillPackage
  *
  * 工具按页面/功能维度分类：
  * - example/: 示例工具（TODO: 替换为实际分类）
@@ -10,11 +14,11 @@ import { exampleToolDefinitions } from './example';
  * 添加新工具时：
  * 1. 根据工具所属页面/功能，在对应目录下创建工具文件
  * 2. 在该目录的 index.ts 中导出工具定义
- * 3. 在此文件中导入并添加到 toolDefinitions 数组
+ * 3. 在此文件的数组中添加新工具
  */
-export const toolDefinitions: ToolDefinition[] = [
+export const { useRegisterTools, definitions } = createToolRegistry([
   ...exampleToolDefinitions,
-];
+] as const);
 
-// 导出各个分类的工具（便于按需引用）
-export { exampleToolDefinitions } from './example';
+// 兼容旧代码：导出 definitions 的别名
+export const toolDefinitions = definitions;

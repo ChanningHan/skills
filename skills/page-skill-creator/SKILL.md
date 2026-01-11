@@ -40,8 +40,8 @@ src/skills/my-app-skill/
 ├── index.ts              # 统一导出配置
 ├── SKILL.md.ts           # Skill 说明文档
 ├── tools/
-│   ├── constants.ts      # 工具名称常量
-│   ├── index.ts          # 工具定义汇总
+│   ├── constants.ts      # Skill 名称常量
+│   ├── index.ts          # 工具注册表（useRegisterTools、definitions）
 │   └── example/
 │       ├── index.ts
 │       └── exampleTool.ts
@@ -77,12 +77,13 @@ export default function Layout() {
 ### 4. 在业务组件注册工具实现
 
 ```typescript
-import { useRegisterTools } from '@ali/page-skill-react';
-import { TOOL_NAMES } from '@/skills/my-app-skill/tools/constants';
+// 从 tools/index.ts 引入类型安全的 useRegisterTools
+import { useRegisterTools } from '@/skills/my-app-skill/tools';
 
 function MyPage() {
+  // IDE 自动提示所有可用工具名，args 类型自动推导
   useRegisterTools({
-    [TOOL_NAMES.MY_TOOL]: async (args) => {
+    'my-app-skill_myTool': async (args) => {
       // 直接返回业务数据，SDK 自动包装
       return { data: 'result' };
     },

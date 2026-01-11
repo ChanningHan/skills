@@ -1,46 +1,31 @@
 # 工具开发指南
 
-详细介绍 PageSkill 工具的定义、常量管理和实现注册。
+详细介绍 PageSkill 工具的定义和实现注册。工具开发只需两步：**定义** → **实现**。
 
 ---
 
 ## 工具定义流程
 
-### 1. 添加工具常量
+### 1. 创建工具定义文件
 
-在 `tools/constants.ts` 中添加：
-
-```typescript
-export const TOOL_NAMES = {
-  // 已有工具...
-  
-  /** 新工具说明 */
-  NEW_TOOL: `${SKILL_NAME}_newTool`,
-} as const;
-```
-
-### 2. 创建工具定义文件
-
-在对应分类目录下创建工具文件：
+在对应分类目录下创建工具文件，使用 `defineTool` 和 Zod Schema：
 
 ```typescript
 // tools/list/newTool.ts
-import { defineTool, z } from '@ali/page-skill-react';
-import { TOOL_NAMES } from '../constants';
+import { defineTool } from '@ali/page-skill-react';
+import { SKILL_NAME } from '../constants';
 
 export const newTool = defineTool(({ z }) => ({
-  name: TOOL_NAMES.NEW_TOOL,
+  name: `${SKILL_NAME}_newTool`,
   description: '工具功能描述。📍 适用页面标注。',
   zodSchema: z.object({
     param1: z.string().describe('参数说明'),
     param2: z.boolean().optional().describe('可选参数'),
   }),
 }));
-
-export type NewToolInput = z.infer<typeof newTool.zodSchema>;
 ```
 
-### 3. 导出工具定义
+### 2. 导出工具定义
 
 ```typescript
 // tools/list/index.ts
@@ -52,18 +37,34 @@ export const listToolDefinitions = [
 ] as const;
 ```
 
-### 4. 注册工具实现
+### 3. 汇总并创建注册表
 
-在业务组件中：
+在 `tools/index.ts` 中使用 `createToolRegistry` 汇总所有工具：
 
 ```typescript
-import { useRegisterTools } from '@ali/page-skill-react';
-import { TOOL_NAMES, type NewToolInput } from '@/skills/my-skill/tools/constants';
+// tools/index.ts
+import { createToolRegistry } from '@ali/page-skill-react';
+import { listToolDefinitions } from './list';
+
+// 一行搞定：汇总定义，导出类型安全的 Hook
+export const { useRegisterTools, definitions } = createToolRegistry([
+  ...listToolDefinitions,
+] as const);
+```
+
+### 4. 注册工具实现
+
+在业务组件中，直接引入 `useRegisterTools`，IDE 自动提示工具名和参数类型：
+
+```typescript
+// 从 tools/index.ts 引入（不是从 @ali/page-skill-react）
+import { useRegisterTools } from '@/skills/my-skill/tools';
 
 function ListPage() {
+  // IDE 自动提示所有可用工具名，args 类型自动推导
   useRegisterTools({
-    [TOOL_NAMES.NEW_TOOL]: async (args: NewToolInput) => {
-      // 实现逻辑
+    'my-skill_newTool': async (args) => {
+      // args 自动为 { param1: string; param2?: boolean }
       return result;
     },
   });
@@ -163,9 +164,9 @@ SDK 从多种格式提取错误信息：
 任何工具新增、修改、删除必须完成：
 
 ```
-1. constants.ts     → 添加/修改/删除常量
-2. tools/{xxx}.ts   → 创建/修改/删除工具定义
-3. tools/index.ts   → 更新导出数组
+1. tools/{xxx}.ts   → 创建/修改/删除工具定义
+2. tools/{分类}/index.ts → 更新分类导出数组
+3. tools/index.ts   → 确保 createToolRegistry 包含新工具
 4. 业务组件         → 更新 useRegisterTools
 5. references/      → 更新 SOP 文档（如涉及）
 6. SKILL.md.ts      → 更新场景说明（如涉及）
